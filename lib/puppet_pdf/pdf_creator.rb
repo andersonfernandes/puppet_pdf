@@ -4,7 +4,6 @@ module PuppetPdf
       raise_error_if_yarn_not_present
 
       @url = url
-      default_output_path = "/tmp/puppet_pdf_#{Time.now.to_i}.pdf"
       @output_path = options.fetch(:output_path, default_output_path)
     end
 
@@ -21,6 +20,11 @@ module PuppetPdf
       which_yarn_output = `which yarn`
 
       raise 'Yarn not installed!' if which_yarn_output.empty?
+    end
+
+    def default_output_path
+      file = Tempfile.new(["puppet_pdf_#{Time.now.to_i}", '.pdf']) 
+      file.path
     end
   end
 end
