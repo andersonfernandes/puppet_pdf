@@ -1,0 +1,14 @@
+{
+  "name": "puppet_pdf",
+  "version": "1.0.0",
+  "main": "pdf.js",
+  "repository": "git@github.com:andersonfernandes/puppet_pdf.git",
+  "author": "Anderson Fernandes <fernandesanderson14@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.12.2"
+  },
+  "scripts": {
+    "createPDF": "node javascript/pdf.js"
+  }
+}
