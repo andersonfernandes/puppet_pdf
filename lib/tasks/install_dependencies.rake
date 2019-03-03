@@ -1,7 +1,11 @@
+require 'utils/yarn_wrapper'
+
 namespace :puppet_pdf do
-  desc 'Intall dependencies of Puppet PDF'
+  include ::Utils::YarnWrapper
+
+  desc 'Install js dependencies of Puppet PDF'
   task :install_dependencies do
-    gem_path = Gem.loaded_specs['puppet_pdf'].full_gem_path
-    system("cd #{gem_path} && yarn install")
+    validate_yarn_installation
+    run_yarn(:install)
   end
 end
