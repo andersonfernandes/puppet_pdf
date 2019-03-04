@@ -1,7 +1,12 @@
+require 'shellwords'
+
 module Utils
   module YarnWrapper
     def run_yarn(command, *args)
-      system("cd #{gem_path} && yarn #{command.to_s} #{args.join('  ')}")
+      command = <<-SH
+        cd #{gem_path} && yarn #{Shellwords.escape(command)} #{prepare_args(args)}
+      SH
+      system(command)
     end
 
     def validate_yarn_installation
@@ -13,7 +18,12 @@ module Utils
     private
 
     def gem_path
-      @gem_path ||= Gem.loaded_specs['puppet_pdf'].full_gem_path
+      @gem_path ||=
+        Shellwords.escape(Gem.loaded_specs['puppet_pdf'].full_gem_path)
+    end
+
+    def prepare_args(args)
+      args.map { |arg| Shellwords.escape(arg) }.join(' ')
     end
   end
 end

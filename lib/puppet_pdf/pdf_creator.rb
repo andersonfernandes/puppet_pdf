@@ -14,6 +14,7 @@ module PuppetPdf
 
     def call
       run_yarn(:createPDF, url, output_path)
+      output_path
     end
 
     private
