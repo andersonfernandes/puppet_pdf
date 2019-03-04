@@ -3,6 +3,9 @@ AllCops:
   DisplayStyleGuide: true
   ExtraDetails: false
   TargetRubyVersion: 2.5.1
+  Exclude:
+    - 'puppet_pdf.gemspec'
+    - 'vendor/bundle/**/*'
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc']
