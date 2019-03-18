@@ -3,10 +3,10 @@ require 'shellwords'
 module Utils
   module YarnWrapper
     def run_yarn(command, *args)
-      command = <<-SH
+      sh_command = <<~SH
         cd #{gem_path} && yarn #{Shellwords.escape(command)} #{prepare_args(args)}
       SH
-      system(command)
+      system(sh_command)
     end
 
     def validate_yarn_installation
