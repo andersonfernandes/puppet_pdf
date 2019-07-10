@@ -6,9 +6,9 @@ const path = require('path')
 
 function getCurrentTimeFormated() {
   const date = new Date();
-  const dateFormatted = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+  const dateFormatted = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
-  return `${dateFormatted}, ${date.toLocaleTimeString('pt-BR')}`
+  return `${dateFormatted}, ${date.toLocaleTimeString('en')}`
 }
 
 var access = fs.createWriteStream(path.resolve(__dirname, '/tmp/puppeteer.log'), { 'flags': 'a' });
@@ -25,7 +25,7 @@ const createPdf = async () => {
          '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     });
     const page = await browser.newPage();
-    await page.goto(process.argv[2], { timeout: 900000, waitUntil: 'networkidle0' });
+    await page.goto(process.argv[2], { timeout: 90000, waitUntil: 'networkidle0' });
     await page.waitFor(1000);
     await page.pdf({
       path: process.argv[3],
