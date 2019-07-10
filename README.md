@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/andersonfernandes/puppet_pdf.svg?branch=master)](https://travis-ci.org/andersonfernandes/puppet_pdf)
+[![Gem Version](https://badge.fury.io/rb/puppet_pdf.svg)](https://badge.fury.io/rb/puppet_pdf) [![Build Status](https://travis-ci.org/andersonfernandes/puppet_pdf.svg?branch=master)](https://travis-ci.org/andersonfernandes/puppet_pdf) [![Maintainability](https://api.codeclimate.com/v1/badges/d7347b2b2ab3ffdc4668/maintainability)](https://codeclimate.com/github/andersonfernandes/puppet_pdf/maintainability)
 
 # PuppetPdf
 
-PuppetPdf is a lib that wraps [Google Puppeteer](https://pptr.dev/) pdf generation to be used with Rails.
+PuppetPdf is a lib that wraps [Google Puppeteer](https://pptr.dev/) pdf generation method to be used with Rails.
 
 ## Installation
 
@@ -20,13 +20,20 @@ Or install it yourself as:
 
     $ gem install puppet_pdf
 
+Run this task to install some dependencies: 
+
+    $ rails puppet_pdf:install_dependencies
+
 ## Usage
 
+In any part of the application you can call:
 
+```ruby
+PuppetPdf.pdf_from_url(url, options)
+```
+***For now only the output_path option is available to use.***
 
-## Development
-
-
+And a pdf of the given url will be generated, and the path to this file is going to be returned.
 
 ## Contributing
 
