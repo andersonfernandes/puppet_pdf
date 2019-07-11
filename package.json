@@ -9,6 +9,7 @@
     "puppeteer": "^1.12.2"
   },
   "scripts": {
-    "createPDF": "node javascript/pdf.js"
+    "pdf_from_url": "node javascript/pdf_from_url.js",
+    "pdf_from_html": "node javascript/pdf_from_html.js"
   }
 }

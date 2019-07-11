@@ -15,7 +15,7 @@ var access = fs.createWriteStream(path.resolve(__dirname, '/tmp/puppeteer.log'),
 // Redirect stdout/stderr to puppeteer.log file
 process.stdout.write = process.stderr.write = access.write.bind(access);
 
-const createPdf = async () => {
+const pdf_from_url = async () => {
   let browser;
   try {
      const browser = await puppeteer.launch({
@@ -33,11 +33,7 @@ const createPdf = async () => {
       margin: { top: 36, right: 36, bottom: 45, left: 36 },
       displayHeaderFooter: true,
       headerTemplate: "<div></div>",
-      footerTemplate: `
-        <footer style="width: 100%; font-size: 8px; font-family: Helvetica; color: #DCDCDC">
-          <div style="margin-left: 36px; float: left">Generated at: ${getCurrentTimeFormated()}</div>
-        </footer>
-      `
+      footerTemplate: "<div></div>"
     });
   } catch (err) {
     const formatedMessage = `\n ${err.message} at: ${getCurrentTimeFormated()}`;
@@ -50,5 +46,5 @@ const createPdf = async () => {
   }
 };
 
-createPdf();
+pdf_from_url();
 

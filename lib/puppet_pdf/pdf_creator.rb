@@ -5,21 +5,22 @@ module PuppetPdf
   class PdfCreator
     include ::Utils::YarnWrapper
 
-    def initialize(url, options = {})
+    def initialize(task, source, options = {})
       validate_yarn_installation
 
-      @url = url
+      @task = task
+      @source = source
       @output_path = options.fetch(:output_path, default_output_path)
     end
 
     def call
-      run_yarn(:createPDF, url, output_path)
+      run_yarn(task, source, output_path)
       output_path
     end
 
     private
 
-    attr_reader :url, :output_path
+    attr_reader :task, :source, :output_path
 
     def default_output_path
       file = Tempfile.new(["puppet_pdf_#{Time.now.to_i}", '.pdf'])

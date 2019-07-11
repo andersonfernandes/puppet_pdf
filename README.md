@@ -31,6 +31,16 @@ In any part of the application you can call:
 ```ruby
 PuppetPdf.pdf_from_url(url, options)
 ```
+
+to generate a pdf from a url. And: 
+
+```ruby
+PuppetPdf.pdf_from_html(html, options)
+```
+
+to generate a pdf from an html.
+
+
 ***For now only the output_path option is available to use.***
 
 And a pdf of the given url will be generated, and the path to this file is going to be returned.
