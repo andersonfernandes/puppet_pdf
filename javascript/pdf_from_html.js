@@ -25,7 +25,9 @@ const pdf_from_html = async () => {
          '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     });
     const page = await browser.newPage();
-    await page.setContent(process.argv[2])
+
+    var contents = fs.readFileSync(process.argv[2], 'utf8');
+    await page.setContent(contents, { timeout: 900000, waitUntil: 'networkidle0' });
     await page.waitFor(1000);
     await page.pdf({
       path: process.argv[3],
