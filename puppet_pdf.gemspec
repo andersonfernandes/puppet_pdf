@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.email         = ['fernandesanderson14@gmail.com']
 
   spec.summary       = 'Simple PDF generator based on Google Puppeteer'
-  spec.description   = 'Simple PDF generator based on Google Puppeteer'
   spec.homepage      = 'https://github.com/andersonfernandes/puppet_pdf'
   spec.license       = 'MIT'
 
@@ -21,11 +20,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.16'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry', '~> 0.12.2'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '~> 0.72.0'
 
-  spec.add_dependency 'activerecord'
-  spec.add_dependency 'railties'
+  spec.add_dependency 'activerecord', '~> 5.0', '>= 5.0.0.1'
+  spec.add_dependency 'railties', '~> 5.2', '>= 5.2.3'
 end
