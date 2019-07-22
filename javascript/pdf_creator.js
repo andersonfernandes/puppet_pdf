@@ -7,33 +7,44 @@ const path = require('path')
 var log = fs.createWriteStream(path.resolve(__dirname, '/tmp/puppet_pdf.log'), { 'flags': 'a' })
 process.stdout.write = process.stderr.write = log.write.bind(log)
 
+const defaultOptions = {
+  header: "<header></header>",
+  footer: "<footer></footer>",
+  loadingDelay: 1000,
+  margin: { top: 36, right: 36, bottom: 45, left: 36 }
+}
+
 /**
  *
- *  argv[2]   sourceType    The type of the source. Possible values: [html, url]
- *  argv[3]   source        The source of the pdf content.
- *                          If sourceType == html, source should be a path to a html file.
- *                          If sourceType == url, source should be a url to the content.
- *  argv[4]   outputPath    The path of the output pdf.
+ *  argv[2]   source        The source of the pdf content.
+ *  argv[3]   options       A JSON with the pdf creation options.
+ *                          The available options are: 
+ *                            - outputPath
+ *                            - header
+ *                            - footer
+ *                            - loadingDelay
+ *                            - margin: { :top, :right, :bottom, :left }
  *
  */
 async function createPdf() {
-  const sourceType  = process.argv[2]
-  const source      = process.argv[3]
-  const outputPath  = process.argv[4]
+  const source  = process.argv[2]
+  const options = JSON.parse(process.argv[3])
+
+  if(Object.is(options.outputPath, undefined)) throw 'You must provide the outputPath option'
 
   let browser
   try {
     const browser = await getBrowser()
-    const page = await getPageWithContent(browser, sourceType, source)
+    const page = await getPageWithContent(browser, source)
 
-    await page.waitFor(1000)
+    await page.waitFor(getOption('loadingDelay', options))
     await page.pdf({
-      path: outputPath,
+      path: options.outputPath,
       format: 'A4',
-      margin: { top: 36, right: 36, bottom: 45, left: 36 },
+      margin: getOption('margin', options),
       displayHeaderFooter: true,
-      headerTemplate: "<header></header>",
-      footerTemplate: "<footer></footer>"
+      headerTemplate: getOption('header', options),
+      footerTemplate: getOption('footer', options),
     })
   } catch (err) {
     const formatedMessage = `\n ${err.message} at: ${getCurrentTimeFormated()}`
@@ -45,18 +56,12 @@ async function createPdf() {
   }
 }
 
-async function getPageWithContent(browser, sourceType, source) {
+async function getPageWithContent(browser, source) {
   const page = await browser.newPage()
   const pageOptions = { timeout: 900000, waitUntil: 'networkidle0' }
-  
-  if(sourceType == 'html') {
-    const contents = fs.readFileSync(source, 'utf8')
-    await page.setContent(contents, pageOptions)
-  } else if(sourceType == 'url') {
-    await page.goto(source, pageOptions);
-  } else {
-    throw 'Invalid Source Type: Argument 3 must specify the source type of the content.'
-  }
+
+  const contents = fs.readFileSync(source, 'utf8')
+  await page.setContent(contents, pageOptions)
 
   return page
 }
@@ -68,6 +73,10 @@ async function getBrowser() {
     args: ['--disable-gpu', '--full-memory-crash-report', '--unlimited-storage',
       '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   })
+}
+
+function getOption(key, options) {
+  return Object.is(options[key], undefined) ? defaultOptions[key] : options[key]
 }
 
 function getCurrentTimeFormated() {
