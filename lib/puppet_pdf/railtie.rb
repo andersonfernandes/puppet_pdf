@@ -1,4 +1,4 @@
-require 'puppet_pdf/helpers'
+require 'puppet_pdf/controller_helpers'
 
 module PuppetPdf
   class Railtie < Rails::Railtie
@@ -7,7 +7,7 @@ module PuppetPdf
     end
 
     initializer 'puppet_pdf.register_helpers' do |_|
-      ActionController::Base.send :prepend, PuppetPdf::Helpers
+      ActionController::Base.send :prepend, PuppetPdf::ControllerHelpers
     end
   end
 end
