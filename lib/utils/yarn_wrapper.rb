@@ -10,8 +10,6 @@ module Utils
     end
 
     def validate_yarn_installation
-      which_yarn_output = `which yarn`
-
       raise 'Yarn not installed!' if which_yarn_output.empty?
     end
 
@@ -20,6 +18,10 @@ module Utils
     def gem_path
       @gem_path ||=
         Shellwords.escape(Gem.loaded_specs['puppet_pdf'].full_gem_path)
+    end
+
+    def which_yarn_output
+      `which yarn`
     end
 
     def prepare_args(args)

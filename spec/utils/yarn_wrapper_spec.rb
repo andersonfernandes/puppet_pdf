@@ -20,6 +20,26 @@ RSpec.describe ::Utils::YarnWrapper do
   end
 
   describe '#validate_yarn_installation' do
+    let(:which_yarn_output) { '/bin/yarn' }
+
+    before do
+      allow(subject).to receive(:which_yarn_output).and_return which_yarn_output
+    end
+
+    context 'when yarn is installed' do
+      it 'should not raise error' do
+        expect { subject.validate_yarn_installation }.not_to raise_error
+      end
+    end
+
+    context 'when yarn is not installed' do
+      let(:which_yarn_output) { '' }
+
+      it 'should not raise error' do
+        expect { subject.validate_yarn_installation }
+          .to raise_error('Yarn not installed!')
+      end
+    end
   end
 end
 
