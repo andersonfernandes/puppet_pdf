@@ -1,8 +1,8 @@
 require 'puppet_pdf/pdf_creator'
-require 'puppet_pdf/controller_helpers'
+require 'puppet_pdf/helpers/controller'
 
-RSpec.describe ::PuppetPdf::ControllerHelpers do
-  subject { HelpersImplementation.new }
+RSpec.describe ::PuppetPdf::Helpers::Controller do
+  subject { ControllerImplementation.new }
 
   describe '#render_pdf' do
     let(:args) do
@@ -46,6 +46,6 @@ RSpec.describe ::PuppetPdf::ControllerHelpers do
   end
 end
 
-class HelpersImplementation
-  prepend ::PuppetPdf::ControllerHelpers
+class ControllerImplementation
+  prepend ::PuppetPdf::Helpers::Controller
 end
