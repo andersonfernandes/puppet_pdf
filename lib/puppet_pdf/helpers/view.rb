@@ -11,7 +11,9 @@ module PuppetPdf
           </style>
         TAG
 
-        asset_tag.html_safe
+        asset_tag
+          .force_encoding('utf-8')
+          .html_safe
       end
 
       def puppet_javascript_script_tag(asset)
@@ -21,7 +23,9 @@ module PuppetPdf
           </script>
         TAG
 
-        asset_tag.html_safe
+        asset_tag
+          .force_encoding('utf-8')
+          .html_safe
       end
 
       private
