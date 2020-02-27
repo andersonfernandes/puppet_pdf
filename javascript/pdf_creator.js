@@ -67,12 +67,20 @@ async function getPageWithContent(browser, source) {
 }
 
 async function getBrowser() {
-  return puppeteer.launch({
+  const executablePath = process.env.CHROME_BIN
+
+  let defaultParams = {
     headless: true,
     pipe: true,
     args: ['--disable-gpu', '--full-memory-crash-report', '--unlimited-storage',
       '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  })
+  }
+
+  if(executablePath) {
+    defaultParams = { ...defaultParams, ...{ executablePath: executablePath } }
+  }
+
+  return puppeteer.launch(defaultParams)
 }
 
 function getOption(key, options) {
