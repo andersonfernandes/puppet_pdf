@@ -6,7 +6,7 @@
   "author": "Anderson Fernandes <fernandesanderson14@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.13.0"
   },
   "scripts": {
     "create_pdf": "node javascript/pdf_creator.js"
