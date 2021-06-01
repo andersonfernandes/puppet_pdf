@@ -106,7 +106,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (~> 2.2.19)
   pry (~> 0.12.2)
   puppet_pdf!
   rake (~> 13.0)
@@ -114,4 +114,4 @@ DEPENDENCIES
   rubocop (~> 0.72.0)
 
 BUNDLED WITH
-   1.17.3
+   2.2.19
